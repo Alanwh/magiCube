@@ -3,6 +3,8 @@ import axios from 'axios';
 import SearchFillter from '../../components/SearchFillter';
 import WrappedTableList from '../../components/TableList';
 import Pagination from '../../components/Pagination';
+import CreateActivity from '../../components/CreacteActivity'
+
 import { 
   Checkbox, 
   Input,
@@ -19,7 +21,7 @@ import './App.css';
 const { Option } = Select;
 const CheckboxGroup = Checkbox.Group;
 
-const modules = ['搜索', '列表', '分页'];
+const modules = ['搜索', '新增', '列表', '分页'];
 
 const DeleteOption =  ({ item, removeSearchColumn }: any) => {
   return(
@@ -84,6 +86,10 @@ class App extends React.Component <any, any>{
     }
     filters.splice(filters.length, 0, data);
     this.setState({ filters })
+  }
+
+  handleCreateActivity = (data: any) => {
+    console.log(data, '==============')
   }
 
   handleTable = (data: any) => {
@@ -208,6 +214,16 @@ class App extends React.Component <any, any>{
           </div>
         </div>
 
+        {/* 新增模块 */}
+        <div className="mob-containner">
+          <div className="box">
+            <div className='mob-title'>新增模块配置</div>
+            <div className="mob-box">
+              <CreateActivity handleCreateActivity={this.handleCreateActivity}/>
+            </div>
+          </div>
+        </div>
+        
         {/* 列表模块 */}
         <div className='mob-containner'>
           <div className='box'>

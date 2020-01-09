@@ -1,7 +1,7 @@
-import React from 'react';
-import { Button, Modal, Form, Input, Radio, Select } from 'antd';
+import React from 'react'
+import { Button, Modal, Form, Input, Radio, Select } from 'antd'
 
-const { Option } = Select;
+const { Option } = Select
 
 function InputTemplate (getFieldDecorator: Function) {
   return(
@@ -142,8 +142,8 @@ const CollectionCreateForm: any = Form.create({ name: 'form_in_modal' })(
   class extends React.Component<any, any> {
     render() {
       const { templateType } = this.props
-      const { visible, onCancel, onCreate, form } = this.props;
-      const { getFieldDecorator } = form;
+      const { visible, onCancel, onCreate, form } = this.props
+      const { getFieldDecorator } = form
       const formItemLayout = {
         labelCol: {
           xs: { span: 24 },
@@ -153,11 +153,11 @@ const CollectionCreateForm: any = Form.create({ name: 'form_in_modal' })(
           xs: { span: 24 },
           sm: { span: 20 },
         },
-      };
+      }
       return (
         <Modal
           visible={visible}
-          title='搜索选项配置'
+          title='新增选项配置'
           okText='确定'
           cancelText='取消'
           onCancel={onCancel}
@@ -182,48 +182,48 @@ const CollectionCreateForm: any = Form.create({ name: 'form_in_modal' })(
             { templateType === 'button' &&  ButtonTemplate(getFieldDecorator) }
           </Form>
         </Modal>
-      );
+      )
     }
 
     handleRadioChange = (e: any) => {
       this.props.changeTemplateType(e.target.value)
     }
   }
-);
+)
 
-class SearchFillter extends React.Component <any, any>{
+class CreateActivity extends React.Component <any, any>{
   formRef: any
 
   state = {
     visible: false,
     templateType: 'input'
-  };
+  }
 
   showModal = () => {
-    this.setState({ visible: true });
-  };
+    this.setState({ visible: true })
+  }
 
   handleCancel = () => {
-    this.setState({ visible: false });
-  };
+    this.setState({ visible: false })
+  }
 
   handleCreate = () => {
-    const { form } = this.formRef.props;
+    const { form } = this.formRef.props
     form.validateFields((err: any, values: any) => {
-      if (err) { return; }
-      form.resetFields();
-      this.setState({ visible: false, templateType: 'input' });
-      this.props.handleSearch(values);
-    });
-  };
+      if (err) { return }
+      form.resetFields()
+      this.setState({ visible: false, templateType: 'input' })
+      this.props.handleCreateActivity(values)
+    })
+  }
 
   changeTemplateType = (val: String) => {
     this.setState({ templateType: val })
   }
 
   saveFormRef = (formRef: any) => {
-    this.formRef = formRef;
-  };
+    this.formRef = formRef
+  }
 
   render() {
     return (
@@ -238,8 +238,8 @@ class SearchFillter extends React.Component <any, any>{
           onCreate={this.handleCreate}
         />
       </div>
-    );
+    )
   }
 }
 
-export default SearchFillter;
+export default CreateActivity
