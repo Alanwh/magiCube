@@ -18,7 +18,7 @@ class Condition extends React.Component<any, any> {
   }
 
   loadTableList () {
-    axios.post('/rp2/autoCodeController/getTableList', { method: 'POST'})
+    axios.post('/autoCodeController/getTableList', { method: 'POST'})
       .then(json => {
         this.setState({
           tableList: json.data.data
@@ -27,7 +27,7 @@ class Condition extends React.Component<any, any> {
   }
 
   loadTableInfo (value: string) {
-    axios.post('/rp2/autoCodeController/queryTableInfo', { tableName: value })
+    axios.post('/autoCodeController/queryTableInfo', { tableName: value })
       .then(json => {
         this.setState({
           tableInfo: json.data.data
@@ -58,7 +58,7 @@ class Condition extends React.Component<any, any> {
       sqlCheck: -1,
       updateColumns: this.state.updateColumns
     }
-    axios.post('/rp2/autoCodeController/saveOne', params)
+    axios.post('/autoCodeController/saveOne', params)
       .then(json => {
         json.data.flag === 'S' && message.success('保存成功')
       })

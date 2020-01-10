@@ -14,7 +14,7 @@ const { SubMenu } = Menu
 class PageLayout extends React.Component {
   state = {
     collapsed: false,
-    contentPage: PageTYPE.LIST
+    contentPage: PageTYPE.SEARCH_FILLTER
   }
 
   onCollapse = (collapsed: any) => {
@@ -50,7 +50,7 @@ class PageLayout extends React.Component {
         <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
           <div className="logo" />
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            <SubMenu
+            {/* <SubMenu
               key="sub1"
               title={
                 <span>
@@ -62,7 +62,7 @@ class PageLayout extends React.Component {
               <Menu.Item key={PageTYPE.LIST} onClick={this.changePageRouter}>列表页配置</Menu.Item>
               <Menu.Item key={PageTYPE.DETAIL} onClick={this.changePageRouter}>详情页配置</Menu.Item>
               <Menu.Item key={PageTYPE.GOODS} onClick={this.changePageRouter}>商品页配置</Menu.Item>
-            </SubMenu>
+            </SubMenu> */}
             <SubMenu
               key="sub2"
               title={
