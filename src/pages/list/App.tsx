@@ -47,6 +47,7 @@ class App extends React.Component <any, any>{
       search: {},
       filters: [],
       table: [],
+      addData: [],
       pageOptions: {
         hasPagination: true,
         pageIndex: 1,
@@ -89,7 +90,11 @@ class App extends React.Component <any, any>{
   }
 
   handleCreateActivity = (data: any) => {
-    console.log(data, '==============')
+    const { addData } = this.state
+    addData.push(data)
+    this.setState({
+      addData
+    })
   }
 
   handleTable = (data: any) => {
@@ -106,13 +111,14 @@ class App extends React.Component <any, any>{
   }
 
   saveConfig = () => {
-    const { filters, pageOptions, table } = this.state;
+    const { filters, pageOptions, table, addData } = this.state;
 
     const json = {
       search: {
         filters: filters.filter((item: any) => item.type !== 'button'),
         buttons: filters.filter((item: any) => item.type === 'button')
       },
+      addData,
       pageOptions,
       table
     }
@@ -189,7 +195,7 @@ class App extends React.Component <any, any>{
   }
 
   render () {
-    const { filters, table, pageOptions } = this.state
+    const { filters, table, pageOptions, addData } = this.state
     return (
       <>
         <div className='box'>
@@ -220,6 +226,11 @@ class App extends React.Component <any, any>{
             <div className='mob-title'>新增模块配置</div>
             <div className="mob-box">
               <CreateActivity handleCreateActivity={this.handleCreateActivity}/>
+              <div className='search-box'>
+                {
+                  this.renderTemplate(addData)
+                }
+              </div>
             </div>
           </div>
         </div>
