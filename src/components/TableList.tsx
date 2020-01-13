@@ -73,6 +73,12 @@ const CollectionCreateForm: any = Form.create({ name: 'form_in_modal' })(
             <Form.Item label='默认值'>
               {getFieldDecorator('default')(<Input />)}
             </Form.Item>
+            <Form.Item label='删除地址'>
+              {getFieldDecorator('delUrl')(<Input />)}
+            </Form.Item>
+            <Form.Item label='编辑地址'>
+              {getFieldDecorator('editUrl')(<Input />)}
+            </Form.Item>
           </Form>
         </Modal>
       )

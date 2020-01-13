@@ -23,13 +23,13 @@ const CheckboxGroup = Checkbox.Group;
 
 const modules = ['搜索', '新增', '列表', '分页'];
 
-const DeleteOption =  ({ item, removeSearchColumn }: any) => {
+const DeleteOption =  ({ item, removeColumn, module }: any) => {
   return(
     <Popconfirm
       title='确定要删除本项吗？'
       okText='确定'
       cancelText='取消'
-      onConfirm={() => removeSearchColumn(item)}
+      onConfirm={() => removeColumn(item, module)}
       icon={<Icon type='question-circle-o' style={{ color: 'red' }} />}
     >
       {item.label + ' : '}
@@ -42,7 +42,7 @@ class App extends React.Component <any, any>{
     super(props);
 
     this.state = {
-      selectedModules: ['搜索', '列表', '分页'],
+      selectedModules: ['搜索', '新增', '列表', '分页'],
       visible: false,
       search: {},
       filters: [],
@@ -138,40 +138,41 @@ class App extends React.Component <any, any>{
     })
   }
 
-  removeSearchColumn (item: any) {
-    const { filters } = this.state
-
-    filters.forEach((i: any, index: number) => {
+  removeColumn (module: string, item: any) {
+    const { filters, addData } = this.state
+    let removeData = module === 'filters' ? filters : addData
+    
+    removeData.forEach((i: any, index: number) => {
       if (i.label === item.label) {
-        filters.splice(index, 1)
+        removeData.splice(index, 1)
         this.setState({
-          filters: [...filters]
+          removeData: [...removeData]
         })
       }
     })
   }
 
-  renderTemplate (filters: any) {
-    return filters.map((item: any, index: number) => {
+  renderTemplate (data: any, module: string) {
+    return data.map((item: any, index: number) => {
       switch (item.type) {
         case 'input':
           return (
             <span key={item.label}>
-              <DeleteOption item={item} removeSearchColumn={this.removeSearchColumn.bind(this)}/>
+              <DeleteOption item={item} removeColumn={this.removeColumn.bind(this, module)}/>
               <Input placeholder={item.placeholder} />
             </span>
           )
         case 'button':
           return(
             <span key={item.label}>
-              <DeleteOption item={item} removeSearchColumn={this.removeSearchColumn.bind(this)}/>
+              <DeleteOption item={item} removeColumn={this.removeColumn.bind(this, module)}/>
               <Button type={item.buttonType}>{item.label}</Button>
             </span>
           )
         case 'select':
           return(
             <span key={'selectBox' + item.label}>
-              <DeleteOption item={item} removeSearchColumn={this.removeSearchColumn.bind(this)}/>
+              <DeleteOption item={item} removeColumn={this.removeColumn.bind(this, module)}/>
               <Select
                 style={{ width: 200 }}
                 key={'select' + item.label}
@@ -186,7 +187,7 @@ class App extends React.Component <any, any>{
         default:
           return(
             <span key={'datapicker' + item.label}>
-              <DeleteOption item={item} removeSearchColumn={this.removeSearchColumn.bind(this)}/>
+              <DeleteOption item={item} removeColumn={this.removeColumn.bind(this, module)}/>
               <DatePicker placeholder={item.placeholder} />
             </span>
           )
@@ -213,7 +214,7 @@ class App extends React.Component <any, any>{
               <SearchFillter handleSearch={this.handleSearch}/>
               <div className='search-box'>
                 {
-                  this.renderTemplate(filters)
+                  this.renderTemplate(filters, 'filters')
                 }
               </div>
             </div>
@@ -228,7 +229,7 @@ class App extends React.Component <any, any>{
               <CreateActivity handleCreateActivity={this.handleCreateActivity}/>
               <div className='search-box'>
                 {
-                  this.renderTemplate(addData)
+                  this.renderTemplate(addData, 'add')
                 }
               </div>
             </div>

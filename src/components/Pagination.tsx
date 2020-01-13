@@ -26,7 +26,7 @@ const CollectionCreateForm: any = Form.create({ name: 'form_in_modal' })(
       return (
         <Modal
           visible={visible}
-          title="列表选项配置"
+          title="分页选项配置"
           okText="确定"
           cancelText="取消"
           onCancel={onCancel}

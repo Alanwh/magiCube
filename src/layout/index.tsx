@@ -2,7 +2,6 @@ import React from 'react'
 import Goods from '../pages/goods'
 import App from '../pages/list/App'
 import Detail from '../pages/detail'
-import Condition from '../pages/condition'
 import { PageTYPE } from '../utils/enum/enum'
 import { Layout, Menu, Breadcrumb, Icon } from 'antd'
 
@@ -33,8 +32,6 @@ class PageLayout extends React.Component {
     switch (contentPage) {
       case PageTYPE.LIST:
         return(<App />)
-      case PageTYPE.SEARCH_FILLTER:
-        return(<Condition />)
       case PageTYPE.DETAIL:
         return(<Detail />)
       case PageTYPE.GOODS:
@@ -62,17 +59,6 @@ class PageLayout extends React.Component {
               <Menu.Item key={PageTYPE.LIST} onClick={this.changePageRouter}>列表页配置</Menu.Item>
               <Menu.Item key={PageTYPE.DETAIL} onClick={this.changePageRouter}>详情页配置</Menu.Item>
               <Menu.Item key={PageTYPE.GOODS} onClick={this.changePageRouter}>商品页配置</Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="sub2"
-              title={
-                <span>
-                  <Icon type="team" />
-                  <span>api 配置</span>
-                </span>
-              }
-            >
-              <Menu.Item key={PageTYPE.SEARCH_FILLTER} onClick={this.changePageRouter}>查询条件配置</Menu.Item>
             </SubMenu>
           </Menu>
         </Sider>
